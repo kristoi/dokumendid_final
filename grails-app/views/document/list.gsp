@@ -52,7 +52,7 @@
             <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 
                 <td><g:link action="show"
-                            id="${documentInstance.id}">${fieldValue(bean: documentInstance, field: "created_by")}</g:link></td>
+                            id="${documentInstance.id}">${fieldValue(bean: documentInstance.creator, field: "first_name")}</g:link></td>
 
                 <td>${fieldValue(bean: documentInstance, field: "updated_by")}</td>
 

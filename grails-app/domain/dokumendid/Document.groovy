@@ -1,5 +1,6 @@
 package dokumendid
 
+
 class Document {
     //Integer document
     String doc_nr
@@ -11,8 +12,9 @@ class Document {
     Integer created_by
     Integer updated_by
 
-   //Person creator;
+    Person creator;
 
+    static belongsTo = [creator:Person]
 
     static mapping = {
         table "document"
@@ -24,7 +26,7 @@ class Document {
         description column: 'description'
         filename column: 'filename'
 
-        //creator column:'created_by', joinTable: false, insert: false, update: false
+        creator column: 'created_by', insertable: false, updateable: false
 
         created_by column: 'created_by'
         updated_by column: 'updated_by'

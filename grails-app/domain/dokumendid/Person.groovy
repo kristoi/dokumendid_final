@@ -9,6 +9,8 @@ class Person {
     Integer created_by
     Integer updated_by
 
+    //Document documents;
+    static hasMany = [documents:Document]
 
     static mapping = {
         table "person"
@@ -17,6 +19,9 @@ class Person {
         id column: 'person', generator: 'sequence', params: [sequence: 'person_id']
         first_name column: 'first_name'
         last_name column: 'last_name'
+
+        //documents joinTable:[name:'Document', key:'id', column:'created_by']
+        //documents column: 'created_by', joinTable: false
 
 
 
