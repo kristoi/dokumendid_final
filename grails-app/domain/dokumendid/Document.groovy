@@ -14,8 +14,11 @@ class Document {
 
     Person creator;
 
+    //DocumentDocType doc_type;
+
     static belongsTo = [creator:Person]
-    static hasMany = [attributes:DocAttribute, ]
+    static hasMany = [attributes:DocAttribute]
+    static hasOne = [doc_type:DocumentDocType]
 
     static mapping = {
         table "document"
@@ -28,6 +31,8 @@ class Document {
         filename column: 'filename'
 
         creator column: 'created_by', insertable: false, updateable: false
+
+        doc_type column: 'document_fk'
 
         created_by column: 'created_by'
         updated_by column: 'updated_by'

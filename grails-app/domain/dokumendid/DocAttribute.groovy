@@ -24,7 +24,7 @@ class DocAttribute {
         id column: 'doc_attribute', generator: 'sequence', params: [sequence: 'doc_attribute_id']
 
         document column: 'document_fk'
-        doc_attribute_type column: 'doc_attribute_fk'
+        doc_attribute_type column: 'doc_attribute_type_fk'
 
 
         type_name column: 'type_name'
