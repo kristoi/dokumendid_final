@@ -15,6 +15,7 @@ class Document {
     Person creator;
 
     static belongsTo = [creator:Person]
+    static hasMany = [attributes:DocAttribute]
 
     static mapping = {
         table "document"
