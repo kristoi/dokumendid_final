@@ -11,9 +11,10 @@ class DocAttribute {
 
     Document document;
     DataType data_type;
+    DocAttributeType doc_attribute_type;
 
     static belongsTo = [document:Document]
-    //static hasOne = [data_type:DataType]
+    //static hasOne = [doc_attribute_type:DocAttributeType]
 
     static mapping = {
         table "doc_attribute"
@@ -23,6 +24,7 @@ class DocAttribute {
         id column: 'doc_attribute', generator: 'sequence', params: [sequence: 'doc_attribute_id']
 
         document column: 'document_fk'
+        doc_attribute_type column: 'doc_attribute_fk'
 
 
         type_name column: 'type_name'

@@ -1,18 +1,16 @@
 package dokumendid.classificator
 
-import dokumendid.DocAttribute
-
-class DataType {
+class DocType {
     String type_name;
 
 
 
     static mapping = {
-        table "data_type"
+        table "doc_type"
         version false
         autoTimestamp(false)
 
-        id column: 'data_type'
+        id column: 'doc_type'
         type_name column: 'type_name'
     }
 
