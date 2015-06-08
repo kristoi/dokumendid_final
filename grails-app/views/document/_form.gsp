@@ -19,18 +19,33 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'attributes', 'error')} ">
-	<label for="attributes">
-		<g:message code="document.attributes.label" default="Attributes" />
-		
-	</label>
-	
-<ul class="one-to-many">
-<g:each in="${documentInstance?.attributes?}" var="a">
-    <li><g:link controller="docAttribute" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
-</g:each>
-<li class="add">
-<g:link controller="docAttribute" action="create" params="['document.id': documentInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'docAttribute.label', default: 'DocAttribute')])}</g:link>
-</li>
+    <g:if test="${documentInstance?.attributes}">
+        <g:each in="${documentInstance.attributes}" var="a">
+            <div>
+                <label>${a.type_name}</label>
+                <span class="property-value" aria-labelledby="attributes-label">
+                    <g:if test="${a.data_type.id == 1}">
+                        ${a.value_text}
+                    </g:if>
+                    <g:elseif test="${a.data_type.id == 2}">
+                        ${a.value_number}
+                    </g:elseif>
+                    <g:elseif test="${a.data_type.id == 3}">
+                        ${a.value_date.toGMTString()}
+                    </g:elseif>
+                    <g:elseif test="${a.data_type.id == 4}">
+                        <!-- TODO: select nimekiri -->
+                        <select name="blabla">
+                            <g:each in="${a.doc_attribute_type.selections}" var="b">
+                                <option value="" <g:if test="${a.atr_type_selection_value == b.id}">selected</g:if>>${b.value_text}</option>
+                            </g:each>
+
+                        </select>
+                    </g:elseif>
+                </span>
+            </div>
+        </g:each>
+    </g:if>
 </ul>
 
 </div>
@@ -57,6 +72,14 @@
 		
 	</label>
 	<g:textField name="doc_nr" value="${documentInstance?.doc_nr}"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'doc_type', 'error')} required">
+	<label for="doc_type">
+		<g:message code="document.doc_type.label" default="Doctype" />
+		<span class="required-indicator">*</span>
+	</label>
+	<g:select id="doc_type" name="doc_type.id" from="${dokumendid.DocumentDocType.list()}" optionKey="id" required="" value="${documentInstance?.doc_type?.id}" class="many-to-one"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'filename', 'error')} ">

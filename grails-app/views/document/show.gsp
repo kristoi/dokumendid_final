@@ -22,7 +22,16 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list document">
-
+			
+				<g:if test="${documentInstance?.created_by}">
+				<li class="fieldcontain">
+					<span id="created_by-label" class="property-label"><g:message code="document.created_by.label" default="Createdby" /></span>
+					
+						<span class="property-value" aria-labelledby="created_by-label"><g:fieldValue bean="${documentInstance}" field="created_by"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${documentInstance?.updated_by}">
 				<li class="fieldcontain">
 					<span id="updated_by-label" class="property-label"><g:message code="document.updated_by.label" default="Updatedby" /></span>
@@ -32,16 +41,22 @@
 				</li>
 				</g:if>
 			
-
+				<g:if test="${documentInstance?.attributes}">
+				<li class="fieldcontain">
+					<span id="attributes-label" class="property-label"><g:message code="document.attributes.label" default="Attributes" /></span>
+					
+						<g:each in="${documentInstance.attributes}" var="a">
+						<span class="property-value" aria-labelledby="attributes-label"><g:link controller="docAttribute" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
 			
 				<g:if test="${documentInstance?.creator}">
 				<li class="fieldcontain">
 					<span id="creator-label" class="property-label"><g:message code="document.creator.label" default="Creator" /></span>
 					
-						<span class="property-value" aria-labelledby="creator-label">
-                            ${documentInstance.creator.first_name} ${documentInstance.creator.last_name}
-                        <!--   <g:link controller="person" action="show" id="${documentInstance?.creator?.id}">${documentInstance?.creator?.encodeAsHTML()}</g:link> -->
-                        </span>
+						<span class="property-value" aria-labelledby="creator-label"><g:link controller="person" action="show" id="${documentInstance?.creator?.id}">${documentInstance?.creator?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>
@@ -73,6 +88,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${documentInstance?.doc_type}">
+				<li class="fieldcontain">
+					<span id="doc_type-label" class="property-label"><g:message code="document.doc_type.label" default="Doctype" /></span>
+					
+						<span class="property-value" aria-labelledby="doc_type-label"><g:link controller="documentDocType" action="show" id="${documentInstance?.doc_type?.id}">${documentInstance?.doc_type?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${documentInstance?.filename}">
 				<li class="fieldcontain">
 					<span id="filename-label" class="property-label"><g:message code="document.filename.label" default="Filename" /></span>
@@ -90,16 +114,7 @@
 					
 				</li>
 				</g:if>
-
-                <g:if test="${documentInstance?.doc_type}">
-                    <li class="fieldcontain">
-                        <span id="type-label" class="property-label"><g:message code="document.name.label" default="Type" /></span>
-
-                        <span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${documentInstance.doc_type.type}" field="type_name"/></span>
-
-                    </li>
-                </g:if>
-
+			
 				<g:if test="${documentInstance?.name}">
 				<li class="fieldcontain">
 					<span id="name-label" class="property-label"><g:message code="document.name.label" default="Name" /></span>
@@ -108,29 +123,7 @@
 					
 				</li>
 				</g:if>
-
-                <hr />
-                <g:if test="${documentInstance?.attributes}">
-                    <g:each in="${documentInstance.attributes}" var="a">
-                        <li class="fieldcontain">
-                            <span id="attributes-label" class="property-label">${a.type_name}</span>
-                            <span class="property-value" aria-labelledby="attributes-label">
-                                <g:if test="${a.data_type.id == 1}">
-                                    ${a.value_text}
-                                </g:if>
-                                <g:elseif test="${a.data_type.id == 2}">
-                                    ${a.value_number}
-                                </g:elseif>
-                                <g:elseif test="${a.data_type.id == 3}">
-                                    ${a.value_date.toGMTString()}
-                                </g:elseif>
-                                <g:elseif test="${a.data_type.id == 3}">
-                                    <!-- TODO: select nimekiri -->
-                                </g:elseif>
-                            </span>
-                        </li>
-                    </g:each>
-                </g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">

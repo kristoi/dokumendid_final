@@ -12,7 +12,7 @@ class Document {
     Integer created_by
     Integer updated_by
 
-    Person creator;
+    Person creator; // kui on samas tabelis key, siis  sellise seosega
 
     //DocumentDocType doc_type;
 

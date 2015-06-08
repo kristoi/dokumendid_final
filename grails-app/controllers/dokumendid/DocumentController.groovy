@@ -6,6 +6,10 @@ class DocumentController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    static scaffold = true
+
+    /*
+
     def index() {
         redirect(action: "list", params: params)
     }
@@ -99,5 +103,5 @@ class DocumentController {
 			flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'document.label', default: 'Document'), params.id])
             redirect(action: "show", id: params.id)
         }
-    }
+    }*/
 }
