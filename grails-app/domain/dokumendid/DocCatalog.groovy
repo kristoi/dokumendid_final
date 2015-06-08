@@ -1,5 +1,7 @@
 package dokumendid
 
+import dokumendid.classificator.DocCatalogType
+
 class DocCatalog {
     String name
 
@@ -10,10 +12,10 @@ class DocCatalog {
         version false
         autoTimestamp(false)
 
-        id column: 'document_doc_type', generator: 'sequence', params: [sequence: 'document_doc_type_id']
+        id column: 'doc_catalog', generator: 'sequence', params: [sequence: 'doc_catalog_id']
 
-        type column: 'doc_type_fk'
-        document column: 'document_fk'
+        //type column: 'doc_type_fk'
+        //document column: 'document_fk'
     }
 
     static constraints = {
