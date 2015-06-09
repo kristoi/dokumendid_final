@@ -18,6 +18,10 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/db-reverse-engineer-0.5.1">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/db-reverse-engineer-0.5.1/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/db-reverse-engineer-0.5.1/src/groovy" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/hibernate-2.0.3">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/hibernate-2.0.3/grails-app/i18n" isTestSource="false" />
     </content>
@@ -37,7 +41,7 @@
     <content url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/webxml-1.4.1">
       <sourceFolder url="file://$USER_HOME$/.grails/2.0.3/projects/dokumendid/plugins/webxml-1.4.1/src/groovy" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="grails-2.0.3" level="application" />
     <orderEntry type="module-library" exported="">

@@ -70,6 +70,25 @@ environments {
     }
 }
 
+
+
+grails.plugin.reveng.packageName = 'com.documents.core'
+grails.plugin.reveng.versionColumns = [other: 'nonstandard_version_name']
+
+grails.plugin.reveng.manyToManyTables = ['doc_attribute', 'document_doc_catalog', 'doc_catalog', 'document_doc_type', 'doc_type_attribute'
+                                         ,'doc_subject', 'doc_status', ]
+
+grails.plugin.reveng.manyToManyBelongsTos = ['doc_subject': 'doc_catalog', 'document_doc_catalog': 'doc_catalog'
+                                             ,'document_doc_catalog':'document', 'doc_attribute':'atr_type_selection_value'
+                                             ,'doc_type_attribute':'doc_type', 'document_doc_type':'doc_type'
+                                             ,'doc_status':'document']
+
+
+
+
+
+
+
 // log4j configuration
 log4j = {
     // Example of changing the log pattern for the default console
