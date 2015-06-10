@@ -589,3 +589,16 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+
+.folder-menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0 0 0;
+}
+
+.folder-menu li {
+    padding: 5px;
+    font-size: 14px;
+    border-bottom: 1px solid #ccc;
+}

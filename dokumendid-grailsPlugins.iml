@@ -43,7 +43,7 @@
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (dokumendid-grailsPlugins)">
         <CLASSES>
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.postgresql/postgresql/jars/postgresql-9.2-1002-jdbc4.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.postgresql/postgresql/jars/postgresql-9.3-1102-jdbc41.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
