@@ -28,6 +28,9 @@ class DocumentController {
     }*/
 
     def list() {
+        if (!params.catalog_id)
+            params.catalog_id = DocCatalog.list().get(0).id;
+        
         params.max = Math.min(params.max ? params.int('max') : 20, 100)
         List<DocumentDocCatalog> catalogList = DocumentDocCatalog.findAllByCatalog(DocCatalog.get(params.catalog_id))
 
