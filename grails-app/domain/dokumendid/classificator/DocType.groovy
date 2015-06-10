@@ -7,7 +7,6 @@ class DocType {
     Long id
     String type_name;
 
-    DocTypeAttribute attributes;
 
     static hasMany = [attributes:DocTypeAttribute]
 
@@ -21,7 +20,6 @@ class DocType {
         id column: 'doc_type'
         type_name column: 'type_name'
 
-        attributes column: 'document_fk'
     }
 
     static constraints = {

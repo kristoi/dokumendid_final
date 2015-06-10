@@ -13,6 +13,8 @@ class User {
     Date created
     String password_never_expires
 
+    static 
+
     static mapping = {
         table "user_account"
         version false
