@@ -80,7 +80,7 @@
         <div class="fieldcontain">
             <label>${b.type_name}</label>
             <g:if test="${b.data_type_fk == 1}">
-                <input type="text" name="attribute.${b.id}"  />
+                <input type="text" name="attribute.${b.id}" <g:if test="${dokumendid.classificator.DocType.isRequired(b.id) == 1}></g:if> />
             </g:if>
             <g:elseif test="${b.data_type_fk == 2}">
                 <input type="text" name="attribute.${b.id}" />
