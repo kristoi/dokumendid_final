@@ -22,115 +22,75 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list document">
-			
-				<g:if test="${documentInstance?.created_by}">
-				<li class="fieldcontain">
-					<span id="created_by-label" class="property-label"><g:message code="document.created_by.label" default="Createdby" /></span>
-					
-						<span class="property-value" aria-labelledby="created_by-label"><g:fieldValue bean="${documentInstance}" field="created_by"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.updated_by}">
-				<li class="fieldcontain">
-					<span id="updated_by-label" class="property-label"><g:message code="document.updated_by.label" default="Updatedby" /></span>
-					
-						<span class="property-value" aria-labelledby="updated_by-label"><g:fieldValue bean="${documentInstance}" field="updated_by"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.attributes}">
-				<li class="fieldcontain">
-					<span id="attributes-label" class="property-label"><g:message code="document.attributes.label" default="Attributes" /></span>
-					
-						<g:each in="${documentInstance.attributes}" var="a">
-						<span class="property-value" aria-labelledby="attributes-label"><g:link controller="docAttribute" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.creator}">
-				<li class="fieldcontain">
-					<span id="creator-label" class="property-label"><g:message code="document.creator.label" default="Creator" /></span>
-					
-						<span class="property-value" aria-labelledby="creator-label"><g:link controller="person" action="show" id="${documentInstance?.creator?.id}">${documentInstance?.creator?.person.first_name}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.dateCreated}">
-				<li class="fieldcontain">
-					<span id="dateCreated-label" class="property-label"><g:message code="document.dateCreated.label" default="Date Created" /></span>
-					
-						<span class="property-value" aria-labelledby="dateCreated-label"><g:formatDate date="${documentInstance?.dateCreated}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.description}">
-				<li class="fieldcontain">
-					<span id="description-label" class="property-label"><g:message code="document.description.label" default="Description" /></span>
-					
-						<span class="property-value" aria-labelledby="description-label"><g:fieldValue bean="${documentInstance}" field="description"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.doc_nr}">
-				<li class="fieldcontain">
-					<span id="doc_nr-label" class="property-label"><g:message code="document.doc_nr.label" default="Docnr" /></span>
-					
-						<span class="property-value" aria-labelledby="doc_nr-label"><g:fieldValue bean="${documentInstance}" field="doc_nr"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.doc_type}">
-				<li class="fieldcontain">
-					<span id="doc_type-label" class="property-label"><g:message code="document.doc_type.label" default="Doctype" /></span>
-					
-						<span class="property-value" aria-labelledby="doc_type-label"><g:link controller="documentDocType" action="show" id="${documentInstance?.doc_type?.id}">${documentInstance?.doc_type?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.filename}">
-				<li class="fieldcontain">
-					<span id="filename-label" class="property-label"><g:message code="document.filename.label" default="Filename" /></span>
-					
-						<span class="property-value" aria-labelledby="filename-label"><g:fieldValue bean="${documentInstance}" field="filename"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${documentInstance?.lastUpdated}">
-				<li class="fieldcontain">
-					<span id="lastUpdated-label" class="property-label"><g:message code="document.lastUpdated.label" default="Last Updated" /></span>
-					
-						<span class="property-value" aria-labelledby="lastUpdated-label"><g:formatDate date="${documentInstance?.lastUpdated}" /></span>
-					
-				</li>
-				</g:if>
-			
+
 				<g:if test="${documentInstance?.name}">
+					<li class="fieldcontain">
+						<span id="file_name-label" class="property-label"><g:message code="document.filename.label" default="Faili nimi" /></span>
+
+						<span class="property-value" aria-labelledby="file_name-label">${documentInstance.name}</span>
+
+					</li>
+				</g:if>
+
+				<g:if test="${documentInstance?.doc_nr}">
+					<li class="fieldcontain">
+						<span id="doc_nr-label" class="property-label"><g:message code="document.lastUpdated.label" default="Dokument number" /></span>
+
+						<span class="property-value" aria-labelledby="lastUpdate-label">${documentInstance.doc_nr}</span>
+
+					</li>
+				</g:if>
+			
+				<g:if test="${documentInstance?.creator.person}">
 				<li class="fieldcontain">
-					<span id="name-label" class="property-label"><g:message code="document.name.label" default="Name" /></span>
+					<span id="created_by-label" class="property-label"><g:message code="document.created_by.label" default="Dokumendi looja" /></span>
 					
-						<span class="property-value" aria-labelledby="name-label"><g:fieldValue bean="${documentInstance}" field="name"/></span>
+						<span class="property-value" aria-labelledby="created_by-label">${documentInstance.creator.person.getName()}</span>
 					
 				</li>
+				</g:if>
+
+				<g:if test="${documentInstance?.description}">
+					<li class="fieldcontain">
+						<span id="description-label" class="property-label"><g:message code="document.description.label" default="Kirjeldus" /></span>
+
+						<span class="property-value" aria-labelledby="created_by-label">${documentInstance.description}</span>
+
+					</li>
+				</g:if>
+
+				<g:if test="${documentInstance?.dateCreated}">
+					<li class="fieldcontain">
+						<span id="date_created-label" class="property-label"><g:message code="document.date_created.label" default="Fail loodud" /></span>
+
+						<span class="property-value" aria-labelledby="created_by-label">${documentInstance.dateCreated}</span>
+
+					</li>
+				</g:if>
+
+				<g:if test="${documentInstance?.lastUpdated}">
+					<li class="fieldcontain">
+						<span id="lastUpdate-label" class="property-label"><g:message code="document.lastUpdated.label" default="Viimane uuendus failile" /></span>
+
+						<span class="property-value" aria-labelledby="lastUpdate-label">${documentInstance.lastUpdated}</span>
+
+					</li>
+				</g:if>
+
+				<g:if test="${documentInstance?.doc_catalog.catalog.name}">
+					<li class="fieldcontain">
+						<span id="lastUpdate-label" class="property-label"><g:message code="document.lastUpdated.label" default="Viimane uuendus failile" /></span>
+
+						<span class="property-value" aria-labelledby="lastUpdate-label">${documentInstance.doc_catalog.catalog.name}</span>
+
+					</li>
 				</g:if>
 			
 			</ol>
-            ${documentInstance.doc_catalog.catalog.name}
-            ${documentInstance.doc_status.status_begin}
 			<g:form>
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${documentInstance?.id}" />
-					<g:link class="edit" action="edit" id="${documentInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<!-- <g:hiddenField name="id" value="${documentInstance?.created_by}" /> --!>
+					<g:link class="edit" action="edit" id="${documentInstance?.created_by}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>

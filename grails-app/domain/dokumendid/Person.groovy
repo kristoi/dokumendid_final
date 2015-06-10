@@ -32,6 +32,10 @@ class Person {
         lastUpdated column: 'updated'
     }
 
+    public String getName() {
+        return this.first_name + " " + this.last_name
+    }
+
     static constraints = {
         created_by size: 1..10
         updated_by size: 1..10
