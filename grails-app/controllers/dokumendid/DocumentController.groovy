@@ -4,6 +4,15 @@ import dokumendid.classificator.DataType
 import org.springframework.dao.DataIntegrityViolationException
 
 class DocumentController {
+    def beforeInterceptor = [action:this.&checkUser,except:['index','list','show']]
+
+    def checkUser() {
+        if(!session.user) {
+        // i.e. user not logged in
+            redirect(controller: 'User',action: 'login')
+            return false
+        }
+    }
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
