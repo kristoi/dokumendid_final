@@ -1,5 +1,7 @@
 package dokumendid
 
+import dokumendid.classificator.DocType
+
 class DocAttributeType {
     String type_name;
     Integer data_type_fk;
@@ -26,5 +28,13 @@ class DocAttributeType {
     }
 
     static constraints = {
+    }
+
+    public int isRequired(DocType t) {
+        DocTypeAttribute b = DocTypeAttribute.findByDoc_typeAndAttribute_type(t, this);
+        if (b.required == 'Y')
+            return 1;
+
+        return 0;
     }
 }

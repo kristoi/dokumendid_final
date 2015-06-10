@@ -4,7 +4,6 @@ import dokumendid.AtrTypeSelectionValue
 import dokumendid.DocTypeAttribute
 
 class DocType {
-    Long id
     String type_name;
 
 
@@ -25,8 +24,4 @@ class DocType {
     static constraints = {
     }
 
-    static int isRequired(long l) {
-
-        return 0;
-    }
 }

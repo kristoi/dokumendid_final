@@ -1,11 +1,14 @@
 package dokumendid.classificator
 
 import dokumendid.Document
+import dokumendid.Employee
 
 class DocStatus {
     Long id
     Date status_begin;
     Date status_end;
+
+    Employee creator;
 
     DocStatusType type;
 
@@ -22,8 +25,10 @@ class DocStatus {
 
         type column: 'doc_status_type_fk'
         document column: 'document_fk'
+        creator colum: 'created_by'
     }
 
     static constraints = {
+        status_end nullable: true
     }
 }

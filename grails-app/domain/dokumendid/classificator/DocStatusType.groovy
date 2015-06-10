@@ -12,4 +12,5 @@ class DocStatusType {
         id column: 'doc_status_type', generator: 'sequence', params: [sequence: 'doc_status_type_id']
         type_name column: 'type_name'
     }
+
 }

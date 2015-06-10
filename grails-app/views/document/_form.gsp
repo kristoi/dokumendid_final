@@ -1,6 +1,7 @@
 <%@ page import="dokumendid.Document" %>
 
 
+<input type="hidden" name="doc_type.id" value="${doc_type.id}" />
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'description', 'error')} ">
 	<label for="description">
@@ -18,13 +19,6 @@
 	<g:textField name="doc_nr" value="${documentInstance?.doc_nr}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'doc_type', 'error')} required">
-	<label for="doc_type">
-		<g:message code="document.doc_type.label" default="Doctype" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:select id="doc_type" name="doc_type.id" from="${dokumendid.classificator.DocType.list()}" optionKey="id" optionValue="type_name" required="" value="${documentInstance?.doc_type?.type?.id}" class="many-to-one"/>
-</div>
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'filename', 'error')} ">
 	<label for="filename">
@@ -47,9 +41,8 @@
     <legend>Attributes</legend>
 
 <g:if test="${documentInstance?.attributes}">
-<div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'attributes', 'error')} ">
     <g:each in="${documentInstance.attributes}" var="a">
-        <div>
+        <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'attributes', 'error')} ">
             <label>${a.type_name}</label>
             <span class="property-value" aria-labelledby="attributes-label">
                 <g:if test="${a.data_type.id == 1}">
@@ -73,24 +66,23 @@
             </span>
         </div>
     </g:each>
-</div>
 </g:if>
 <g:else>
     <g:each in="${dokumendid.DocAttributeType.list()}" var="b">
-        <div class="fieldcontain">
-            <label>${b.type_name}</label>
+        <div class="fieldcontain  <g:if test="${b.isRequired(doc_type) == 1}">required</g:if>">
+            <label>${b.type_name} <g:if test="${b.isRequired(doc_type) == 1}">*</g:if></label>
             <g:if test="${b.data_type_fk == 1}">
-                <input type="text" name="attribute.${b.id}" <g:if test="${dokumendid.classificator.DocType.isRequired(b.id) == 1}">required</g:if> />
+                <input type="text" name="attribute.${b.id}" <g:if test="${b.isRequired(doc_type) == 1}">required</g:if> />
             </g:if>
             <g:elseif test="${b.data_type_fk == 2}">
-                <input type="text" name="attribute.${b.id}" />
+                <input type="text" name="attribute.${b.id}" <g:if test="${b.isRequired(doc_type) == 1}">required</g:if> />
             </g:elseif>
             <g:elseif test="${b.data_type_fk == 3}">
-                <input type="text" name="attribute.${b.id}" />
+                <input type="text" name="attribute.${b.id}" <g:if test="${b.isRequired(doc_type) == 1}">required</g:if> />
             </g:elseif>
             <g:elseif test="${b.data_type_fk == 4}">
                 <!-- TODO: select nimekiri -->
-                <select name="attribute.${b.id}">
+                <select name="attribute.${b.id}" <g:if test="${b.isRequired(doc_type) == 1}">required</g:if>>
                     <g:each in="${b.selections}" var="c">
                         <option value="${c.id}" <g:if test="${b.default_selection.id == c.id}">selected</g:if>>${c.value_text}</option>
                     </g:each>
@@ -99,5 +91,14 @@
         </div>
     </g:each>
 </g:else>
+    <div class="fieldcontain  required">
+        <label>DocStatus</label>
+
+        <select name="doc_status_type.id">
+            <g:each in="${dokumendid.classificator.DocStatusType.list()}" var="s">
+                <option value="${s.id}">${s.type_name}</option>
+            </g:each>
+        </select>
+    </div>
 
 </fieldset>

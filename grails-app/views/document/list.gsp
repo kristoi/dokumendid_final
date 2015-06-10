@@ -15,6 +15,18 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
+
+    <div style="float: left; width: 20%">
+        <ul class="menu">
+            <g:each in="${dokumendid.DocCatalog.list()}" var="c">
+                <g:if test="${c.level == 1}">
+                    <li>${c.name}</li>
+                </g:if>
+            </g:each>
+        </ul>
+    </div>
+    <div style="float: left; width:80%">
+
 		<div id="list-document" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
@@ -62,5 +74,6 @@
 				<g:paginate total="${documentInstanceTotal}" />
 			</div>
 		</div>
+    </div>
 	</body>
 </html>

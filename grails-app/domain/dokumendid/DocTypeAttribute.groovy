@@ -25,4 +25,5 @@ class DocTypeAttribute {
 
     static constraints = {
     }
+
 }

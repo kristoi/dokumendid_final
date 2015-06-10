@@ -1,6 +1,9 @@
 package dokumendid
 
 import dokumendid.classificator.DataType
+import dokumendid.classificator.DocStatus
+import dokumendid.classificator.DocStatusType
+import dokumendid.classificator.DocType
 import org.springframework.dao.DataIntegrityViolationException
 
 class DocumentController {
@@ -33,7 +36,9 @@ class DocumentController {
         //def document = new Document(params);
        // document.setDoc_type(new Doc)
 
-        [documentInstance: new Document(params)]
+        Document d = new Document(params);
+
+        [documentInstance: d, doc_type: DocType.findById(10)]
     }
 
 
@@ -47,9 +52,27 @@ class DocumentController {
         documentInstance.setDoc_catalog(
                 new DocumentDocCatalog(document: documentInstance.getId(), catalog: DocCatalog.findById(4)))
 
-        def attributes = params.list("attribute").get(0)
+        DocumentDocType type = new DocumentDocType();
+        type.document = documentInstance;
+        type.type = DocType.findById(params.get('doc_type.id'))
+        documentInstance.setDoc_type(type)
 
-        attributes.each{ k, v ->
+        DocStatus status = new DocStatus();
+        status.document = documentInstance;
+        status.type = DocStatusType.get(params.get('doc_status_type.id'));
+        status.status_begin = new Date();
+        status.status_end = null;
+        status.creator = Employee.get(session.employee_id)
+        documentInstance.addToDoc_status(status);
+
+
+
+
+        println params.list("attribute")
+        def attributes = params.list("attribute").toArray()
+
+
+        attributes[0].each{ k, v ->
             DocAttributeType test = DocAttributeType.findById(k);
 
             String value_text = null;
@@ -100,7 +123,8 @@ class DocumentController {
 
 
         if (!documentInstance.save(flush: true)) {
-            render(view: "create", model: [documentInstance: documentInstance])
+            render(view: "create", model: [
+                    documentInstance: documentInstance, doc_type: DocType.findById(params.get('doc_type.id'))])
             return
         }
 
