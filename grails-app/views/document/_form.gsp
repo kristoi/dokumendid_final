@@ -80,17 +80,17 @@
         <div class="fieldcontain">
             <label>${b.type_name}</label>
             <g:if test="${b.data_type_fk == 1}">
-
+                <input type="text" name="attribute.${b.id}"  />
             </g:if>
             <g:elseif test="${b.data_type_fk == 2}">
-
+                <input type="text" name="attribute.${b.id}" />
             </g:elseif>
             <g:elseif test="${b.data_type_fk == 3}">
-
+                <input type="text" name="attribute.${b.id}" />
             </g:elseif>
             <g:elseif test="${b.data_type_fk == 4}">
                 <!-- TODO: select nimekiri -->
-                <select name="blabla">
+                <select name="attribute.${b.id}">
                     <g:each in="${b.selections}" var="c">
                         <option value="${c.id}" <g:if test="${b.default_selection.id == c.id}">selected</g:if>>${c.value_text}</option>
                     </g:each>

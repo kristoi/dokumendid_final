@@ -1,5 +1,6 @@
 package dokumendid
 
+import dokumendid.classificator.DataType
 import org.springframework.dao.DataIntegrityViolationException
 
 class DocumentController {
@@ -17,14 +18,77 @@ class DocumentController {
     def list() {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [documentInstanceList: Document.list(params), documentInstanceTotal: Document.count()]
-    }
+    }*/
 
     def create() {
+        //def document = new Document(params);
+       // document.setDoc_type(new Doc)
+
         [documentInstance: new Document(params)]
     }
 
+
+
     def save() {
         def documentInstance = new Document(params)
+        documentInstance.created_by = 1
+        documentInstance.updated_by = null
+        documentInstance.lastUpdated = null
+        documentInstance.setDoc_catalog(
+                new DocumentDocCatalog(document: documentInstance.getId(), catalog: DocCatalog.findById(4)))
+
+        def attributes = params.list("attribute").get(0)
+
+        attributes.each{ k, v ->
+            DocAttributeType test = DocAttributeType.findById(k);
+
+            String value_text = null;
+            String value_number = null;
+            String value_date = null;
+            String atr_type_selection_value = null;
+
+            if (test.data_type_fk == 1)
+                value_text = v;
+            else if (test.data_type_fk == 2)
+                value_number = v;
+            else if (test.data_type_fk == 3)
+                value_date = v;
+            else if (test.data_type_fk == 4)
+                atr_type_selection_value = v;
+
+            documentInstance.addToAttributes(new DocAttribute(
+                    document: documentInstance.getId(),
+                    doc_attribute_type: test,
+                    data_type: DataType.findById(test.data_type_fk),
+                    value_text: value_text,
+                    value_number: value_number,
+                    value_date: value_date,
+                    atr_type_selection_value: atr_type_selection_value,
+                    type_name: test.type_name,
+                    required: 'Y'
+            ))
+        }
+
+
+
+
+       // DocAttributeType test = DocAttributeType.findById(3);
+
+        String value_text = "tere";
+/*
+        documentInstance.addToAttributes(new DocAttribute(
+            atr_type_selection_value: null,
+            doc_attribute_type: test,
+            document: documentInstance,
+            type_name: test.type_name,
+            value_text: value_text
+        ))*/
+
+        println params.dump()
+
+
+
+
         if (!documentInstance.save(flush: true)) {
             render(view: "create", model: [documentInstance: documentInstance])
             return
@@ -33,6 +97,8 @@ class DocumentController {
 		flash.message = message(code: 'default.created.message', args: [message(code: 'document.label', default: 'Document'), documentInstance.id])
         redirect(action: "show", id: documentInstance.id)
     }
+
+    /*
 
     def show() {
         def documentInstance = Document.get(params.id)

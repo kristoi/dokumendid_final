@@ -7,7 +7,7 @@ class DocAttribute {
     String value_text
     Integer value_number
     Date value_date
-    Boolean required
+    String required
     Integer atr_type_selection_value;
 
     Document document
@@ -32,9 +32,14 @@ class DocAttribute {
 
         atr_type_selection_value column: 'atr_type_selection_value_fk'
 
+        required column: 'required'
         data_type column: 'data_type'
     }
 
     static constraints = {
+        atr_type_selection_value nullable: true
+        value_date nullable: true
+        value_number nullable: true
+        value_text nullable: true
     }
 }

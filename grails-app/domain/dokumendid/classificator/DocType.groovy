@@ -1,8 +1,15 @@
 package dokumendid.classificator
 
+import dokumendid.AtrTypeSelectionValue
+import dokumendid.DocTypeAttribute
+
 class DocType {
     Long id
     String type_name;
+
+    //DocTypeAttribute attributes;
+
+    static hasMany = [attributes:DocTypeAttribute]
 
 
 

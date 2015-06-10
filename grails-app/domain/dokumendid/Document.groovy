@@ -17,6 +17,7 @@ class Document {
 
 
     Person creator; // kui on samas tabelis key, siis  sellise seosega
+    DocumentDocCatalog doc_catalog;
 
     //DocumentDocType doc_type;
 
@@ -40,10 +41,10 @@ class Document {
         doc_type column: 'document_fk'
         doc_catalog column: 'document_fk'
 
-        created_by column: 'created_by'
-        updated_by column: 'updated_by'
-        dateCreated column: 'created'
-        lastUpdated column: 'updated'
+        created_by column: 'created_by', insertable: true, updateable: false
+        updated_by column: 'updated_by', insertable: false, updateable: true
+        dateCreated column: 'created', insertable: true, updateable: false
+        lastUpdated column: 'updated', insertable: false, updateable: true
     }
 
     static constraints = {
