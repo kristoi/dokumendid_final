@@ -13,6 +13,7 @@ class User {
     Date created
     String password_never_expires
 
+    static 
 
     static mapping = {
         table "user_account"
@@ -33,16 +34,5 @@ class User {
     static constraints = {
         username blank: false
         password blank: false
-    }
-
-    public long getEmployeeId() {
-        long id = 0;
-
-        if (this.subject_type_fk == 3) {
-            Employee e = Employee.findById(this.subject_fk);
-            id = e.id;
-        }
-
-        return id;
     }
 }
