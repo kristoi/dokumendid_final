@@ -22,4 +22,9 @@ class UserController {
             redirect(controller:'document')
         }
     }
+
+    def logout = {
+        session.invalidate()
+        redirect(controller:'main')
+    }
 }
