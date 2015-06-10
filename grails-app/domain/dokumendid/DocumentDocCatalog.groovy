@@ -1,21 +1,19 @@
 package dokumendid
 
-import dokumendid.classificator.DocType
-
-class DocumentDocType {
-    DocType type;
+class DocumentDocCatalog {
+    DocCatalog catalog;
     Document document;
 
     static belongsTo = [document:Document]
 
     static mapping = {
-        table "document_doc_type"
+        table "document_doc_catalog"
         version false
         autoTimestamp(false)
 
-        id column: 'document_doc_type', generator: 'sequence', params: [sequence: 'document_doc_type_id']
+        id column: 'document_doc_catalog', generator: 'sequence', params: [sequence: 'document_doc_catalog_id']
 
-        type column: 'doc_type_fk'
+        catalog column: 'doc_catalog_fk'
         document column: 'document_fk'
     }
 
@@ -29,8 +27,4 @@ class DocumentDocType {
     public String getTypeId() {
         return "$type.id"
     }
-/*
-    public String getId() {
-        return "$type.type_name"
-    }*/
 }

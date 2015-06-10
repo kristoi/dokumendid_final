@@ -2,6 +2,7 @@ package dokumendid
 
 class DocAttributeType {
     String type_name;
+    Integer data_type_fk;
 
 
     static hasMany = [selections:AtrTypeSelectionValue]
@@ -19,6 +20,7 @@ class DocAttributeType {
         type_name column: 'type_name'
         //selections column: 'default_selection_id_fk'
         default_selection column: 'default_selection_id_fk'
+        data_type_fk colum: 'data_type_fk'
     }
 
     static constraints = {

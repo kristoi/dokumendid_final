@@ -7,6 +7,8 @@ class DocCatalog {
 
     DocCatalogType type;
 
+    static hasMany = [childs:DocCatalog]
+
     static mapping = {
         table "doc_catalog"
         version false
@@ -14,7 +16,8 @@ class DocCatalog {
 
         id column: 'doc_catalog', generator: 'sequence', params: [sequence: 'doc_catalog_id']
 
-        //type column: 'doc_type_fk'
+        type column: 'doc_catalog_type_fk'
+        childs column: 'upper_catalog_fk'
         //document column: 'document_fk'
     }
 

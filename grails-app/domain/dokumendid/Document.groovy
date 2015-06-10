@@ -1,5 +1,8 @@
 package dokumendid
 
+import dokumendid.classificator.DocStatus
+import dokumendid.classificator.DocType
+
 
 class Document {
     //Integer document
@@ -12,13 +15,15 @@ class Document {
     Integer created_by
     Integer updated_by
 
+
     Person creator; // kui on samas tabelis key, siis  sellise seosega
 
     //DocumentDocType doc_type;
 
+
     static belongsTo = [creator:Person]
-    static hasMany = [attributes:DocAttribute]
-    static hasOne = [doc_type:DocumentDocType]
+    static hasMany = [attributes:DocAttribute, doc_status:DocStatus]
+    static hasOne = [doc_type:DocumentDocType, doc_catalog:DocumentDocCatalog]
 
     static mapping = {
         table "document"
@@ -33,6 +38,7 @@ class Document {
         creator column: 'created_by', insertable: false, updateable: false
 
         doc_type column: 'document_fk'
+        doc_catalog column: 'document_fk'
 
         created_by column: 'created_by'
         updated_by column: 'updated_by'

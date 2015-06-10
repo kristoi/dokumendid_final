@@ -125,6 +125,8 @@
 				</g:if>
 			
 			</ol>
+            ${documentInstance.doc_catalog.catalog.name}
+            ${documentInstance.doc_status.status_begin}
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${documentInstance?.id}" />
