@@ -1,9 +1,9 @@
 package dokumendid
 
 class User {
-    Integer user_account
+    Integer id
     Integer subject_type_fk
-    Integer subject_type
+    Integer subject_fk
     String username
     String password
     Integer status
@@ -17,10 +17,10 @@ class User {
         table "user_account"
         version false
 
-        user_account column: 'user_account', generator: 'sequence', params: [sequence: 'user_account_id']
+        id column: 'user_account', generator: 'sequence', params: [sequence: 'user_account_id']
         username column: 'username'
         password column: 'passw'
-        subject_type column: 'subject_type'
+        subject_fk column: 'subject_fk'
         subject_type_fk column: 'subject_type_fk'
         status column: 'status'
         valid_from column: 'valid_from'

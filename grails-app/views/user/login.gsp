@@ -7,26 +7,41 @@
 
 <html>
 <head>
-    <title>Documents - Login</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main" />
+    <title>User Login</title>
 </head>
 <body>
-    <g:form class="simpleform" style="width:50%;" url="[controller:'user',action:'login']">
-        <fieldset>
-            <legend>Login</legend>
-            <p>
-                <label for="username">Username</label>
-                <g:textField name="username" />
-            </p>
-            <p>
-                <label for="password">Password</label>
-                <g:passwordField name="password" />
-            </p>
-            <p class="button">
-                <label>&nbsp;</label>
-                <g:submitButton class="button" name="submitButton" value="Login" />
-            </p>
-        </fieldset>
+<div class="body">
+    <g:form action="doLogin" method="post">
+        <div class="dialog">
+            <p>Enter your login details below:</p>
+            <table  class="userForm">
+                <tr class='prop'>
+                    <td valign='top' style='text-align:left;' width='20%'>
+                        <label for='username'>username:</label>
+                    </td>
+                    <td valign='top' style='text-align:left;' width='80%'>
+                        <input id="username" type='text' name='username' value='${user?.username}' />
+                    </td>
+                </tr>
+                <tr class='prop'>
+                    <td valign='top' style='text-align:left;' width='20%'>
+                        <label for='password'>Password:</label>
+                    </td>
+                    <td valign='top' style='text-align:left;' width='80%'>
+                        <input id="password" type='password' name='password'
+                               value='${user?.password}' />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="buttons">
+            <span class="formButton">
+                <input type="submit" value="Login"/>
+            </span>
+        </div>
     </g:form>
+</div>
 </body>
 </html>
