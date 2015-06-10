@@ -17,10 +17,27 @@
 		</div>
 
     <div style="float: left; width: 20%">
-        <ul class="menu">
+        <h1>Kaustad</h1>
+        <ul class="folder-menu">
             <g:each in="${dokumendid.DocCatalog.list()}" var="c">
                 <g:if test="${c.level == 1}">
-                    <li>${c.name}</li>
+                    <li>
+                        <a href="?catalog_id=${c.id}">${c.name}</a>
+                        <g:each in="${dokumendid.DocCatalog.list()}" var="d">
+                            <g:if test="${d.level == 2 && d.upper_catalog_fk == c.id}">
+                                <li style="padding-left: 30px;">
+                                    <a href="?catalog_id=${d.id}">${d.name}</a>
+                                    <g:each in="${dokumendid.DocCatalog.list()}" var="e">
+                                        <g:if test="${e.level == 3 && e.upper_catalog_fk == d.id}">
+                                            <li style="padding-left: 30px;">
+                                                <a href="?catalog_id=${e.id}">${e.name}</a>
+                                            </li>
+                                        </g:if>
+                                    </g:each>
+                                </li>
+                            </g:if>
+                        </g:each>
+                    </li>
                 </g:if>
             </g:each>
         </ul>
@@ -71,7 +88,7 @@
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${documentInstanceTotal}" />
+				<g:paginate total="${documentInstanceTotal}" max="50" params="${[catalog_id:params.get("catalog_id")]}" />
 			</div>
 		</div>
     </div>

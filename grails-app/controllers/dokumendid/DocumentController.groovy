@@ -25,12 +25,25 @@ class DocumentController {
 
     def index() {
         redirect(action: "list", params: params)
-    }
+    }*/
 
     def list() {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [documentInstanceList: Document.list(params), documentInstanceTotal: Document.count()]
-    }*/
+        params.max = Math.min(params.max ? params.int('max') : 20, 100)
+        List<DocumentDocCatalog> catalogList = DocumentDocCatalog.findAllByCatalog(DocCatalog.get(params.catalog_id))
+
+        List<Long> ids = new ArrayList<Long>();
+
+        for (DocumentDocCatalog c : catalogList) {
+            ids.push(c.document.id);
+        }
+
+        println ids;
+        List<Document> dokumendid = Document.findAllByIdInList(ids, params)
+        Integer count = Document.findAllByIdInList(ids).size()
+
+        [documentInstanceList: dokumendid ,
+         documentInstanceTotal: count]
+    }
 
     def create() {
         //def document = new Document(params);
