@@ -56,7 +56,7 @@
 				<li class="fieldcontain">
 					<span id="creator-label" class="property-label"><g:message code="document.creator.label" default="Creator" /></span>
 					
-						<span class="property-value" aria-labelledby="creator-label"><g:link controller="person" action="show" id="${documentInstance?.creator?.id}">${documentInstance?.creator?.encodeAsHTML()}</g:link></span>
+						<span class="property-value" aria-labelledby="creator-label"><g:link controller="person" action="show" id="${documentInstance?.creator?.id}">${documentInstance?.creator?.person.first_name}</g:link></span>
 					
 				</li>
 				</g:if>

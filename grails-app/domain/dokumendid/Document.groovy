@@ -16,7 +16,7 @@ class Document {
     Integer updated_by
 
 
-    Person creator; // kui on samas tabelis key, siis  sellise seosega
+    Employee creator; // kui on samas tabelis key, siis  sellise seosega
     DocumentDocCatalog doc_catalog;
 
     //DocumentDocType doc_type;

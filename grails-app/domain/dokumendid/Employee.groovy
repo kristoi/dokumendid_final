@@ -3,8 +3,8 @@ package dokumendid
 class Employee {
     String active
 
-    //Document documents;
-    static hasMany = [person:Person]
+    Person person;
+    //static hasOne = [person:Person]
 
     static mapping = {
         table "employee"
@@ -14,7 +14,7 @@ class Employee {
         id column: 'employee', generator: 'sequence', params: [sequence: 'employee_id']
         active columm: 'active'
         //documents joinTable:[name:'Document', key:'id', column:'created_by']
-        //documents column: 'created_by', joinTable: false
+        person column: 'person_fk'
 
 
     }

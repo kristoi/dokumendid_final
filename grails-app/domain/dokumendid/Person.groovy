@@ -12,6 +12,7 @@ class Person {
     //Document documents;
     static hasMany = [documents:Document]
 
+
     static mapping = {
         table "person"
         version false

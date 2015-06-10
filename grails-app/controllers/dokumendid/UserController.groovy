@@ -12,6 +12,7 @@ class UserController {
             if (u) {
                 // username and password match -> log in
                 session.user = u
+                session.employee_id = u.getEmployeeId()
                 redirect(controller:'document')
             } else {
                 flash.message = "User not found"

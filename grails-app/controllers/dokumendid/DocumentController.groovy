@@ -41,7 +41,7 @@ class DocumentController {
     def save() {
         def documentInstance = new Document(params)
 
-        documentInstance.created_by = session.user.id
+        documentInstance.created_by = session.employee_id
         documentInstance.updated_by = null
         documentInstance.lastUpdated = null
         documentInstance.setDoc_catalog(
