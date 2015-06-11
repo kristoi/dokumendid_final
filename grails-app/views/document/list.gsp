@@ -84,35 +84,31 @@
 				<thead>
 					<tr>
 					
-						<g:sortableColumn property="created_by" title="${message(code: 'document.created_by.label', default: 'Createdby')}" />
+						<g:sortableColumn property="Dok_nr" title="${message(code: 'document.created_by.label', default: 'Dok nr')}" />
+
+                        <g:sortableColumn property="failinimi" title="${message(code: 'document.doc_nr.label', default: 'Nimi')}" />
+
+                        <th><g:message code="document.creator.label" default="Autor" /></th>
 					
-						<g:sortableColumn property="updated_by" title="${message(code: 'document.updated_by.label', default: 'Updatedby')}" />
+						<g:sortableColumn property="dateCreated" title="${message(code: 'document.dateCreated.label', default: 'Fail Loodud')}" />
 					
-						<th><g:message code="document.creator.label" default="Creator" /></th>
-					
-						<g:sortableColumn property="dateCreated" title="${message(code: 'document.dateCreated.label', default: 'Date Created')}" />
-					
-						<g:sortableColumn property="description" title="${message(code: 'document.description.label', default: 'Description')}" />
-					
-						<g:sortableColumn property="doc_nr" title="${message(code: 'document.doc_nr.label', default: 'Docnr')}" />
-					
+						<g:sortableColumn property="description" title="${message(code: 'document.description.label', default: 'Kirjeldus')}" />
+
 					</tr>
 				</thead>
 				<tbody>
 				<g:each in="${documentInstanceList}" status="i" var="documentInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${documentInstance.id}">${fieldValue(bean: documentInstance, field: "created_by")}</g:link></td>
-					
-						<td>${fieldValue(bean: documentInstance, field: "updated_by")}</td>
-					
-						<td>${fieldValue(bean: documentInstance, field: "creator")}</td>
+
+						<td><g:link action="show" id="${documentInstance.id}">${documentInstance.doc_nr}</g:link></td>
+
+                        <td>${fieldValue(bean: documentInstance, field: "name")}</td>
+
+						<td>${documentInstance.creator.person.last_name}</td>
 					
 						<td><g:formatDate date="${documentInstance.dateCreated}" /></td>
 					
 						<td>${fieldValue(bean: documentInstance, field: "description")}</td>
-					
-						<td>${fieldValue(bean: documentInstance, field: "doc_nr")}</td>
 					
 					</tr>
 				</g:each>
