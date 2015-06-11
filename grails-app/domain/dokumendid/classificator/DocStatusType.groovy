@@ -1,6 +1,7 @@
 package dokumendid.classificator
 
 class DocStatusType {
+    Long id
     String type_name
 
 

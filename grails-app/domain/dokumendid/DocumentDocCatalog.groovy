@@ -1,6 +1,7 @@
 package dokumendid
 
 class DocumentDocCatalog {
+    Long id
     DocCatalog catalog;
     Document document;
 

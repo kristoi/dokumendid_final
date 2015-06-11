@@ -17,6 +17,7 @@ class Document {
 
 
     Employee creator; // kui on samas tabelis key, siis  sellise seosega
+    Employee updater; // kui on samas tabelis key, siis  sellise seosega
     DocumentDocCatalog doc_catalog;
 
 
@@ -24,7 +25,7 @@ class Document {
     //DocumentDocType doc_type;
 
 
-    static belongsTo = [creator:Person]
+    static belongsTo = [creator:Person,updater:Person]
     static hasMany = [attributes:DocAttribute, doc_status:DocStatus]
     static hasOne = [doc_type:DocumentDocType, doc_catalog:DocumentDocCatalog]
 
@@ -39,11 +40,13 @@ class Document {
         filename column: 'filename'
 
         creator column: 'created_by', insertable: false, updateable: false
+        updater column: 'updated_by', insertable: false, updateable: false
 
         doc_type column: 'document_fk'
         doc_catalog column: 'document_fk'
 
         attributes sort: 'id', order: 'asc'
+        doc_status sort: 'id', order: 'asc'
 
         created_by column: 'created_by', insertable: true, updateable: false
         updated_by column: 'updated_by', insertable: false, updateable: true

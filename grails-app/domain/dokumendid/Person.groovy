@@ -24,7 +24,7 @@ class Person {
         //documents joinTable:[name:'Document', key:'id', column:'created_by']
         //documents column: 'created_by', joinTable: false
 
-
+        name formula: 'CONCAT(first_name, " ", last_name)'
 
         created_by column: 'created_by'
         updated_by column: 'updated_by'

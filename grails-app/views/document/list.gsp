@@ -102,7 +102,7 @@
 
 						<td><g:link action="show" id="${documentInstance.id}">${documentInstance.doc_nr}</g:link></td>
 
-                        <td>${fieldValue(bean: documentInstance, field: "name")}</td>
+                        <td><g:link action="show" id="${documentInstance.id}">${fieldValue(bean: documentInstance, field: "name")}</g:link></td>
 
 						<td>${documentInstance.creator.person.last_name}</td>
 					

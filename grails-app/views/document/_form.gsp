@@ -1,8 +1,8 @@
 <%@ page import="dokumendid.Document" %>
 
 
-<input type="hidden" name="doc_type.id" value="${doc_type.id}" />
-<input type="hidden" name="doc_catalog.id" value="${doc_catalog.id}" />
+<input type="hidden" name="doc_type_id" value="${doc_type.id}" />
+<input type="hidden" name="doc_catalog_id" value="${doc_catalog.id}" />
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'description', 'error')} ">
 	<label for="description">
@@ -104,7 +104,8 @@
 
         <select name="doc_status_type.id">
             <g:each in="${dokumendid.classificator.DocStatusType.list()}" var="s">
-                <option value="${s.id}">${s.type_name}</option>
+                <option value="${s.id}" <g:if test="${documentInstance.doc_status?.toList().size() > 0}">
+                <g:if test="${documentInstance.doc_status?.toList()?.last()?.type.id == s.id}">selected</g:if></g:if>>${s.type_name}</option>
             </g:each>
         </select>
     </div>

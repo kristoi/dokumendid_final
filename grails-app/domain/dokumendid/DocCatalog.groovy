@@ -3,6 +3,7 @@ package dokumendid
 import dokumendid.classificator.DocCatalogType
 
 class DocCatalog {
+    Long id
     String name
 
     DocCatalogType type;
