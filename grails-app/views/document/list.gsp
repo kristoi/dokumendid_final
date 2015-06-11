@@ -45,7 +45,38 @@
     <div style="float: left; width:80%">
 
 		<div id="list-document" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <div style="float: left; width: 50%;">
+			    <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            </div>
+
+            <div style="float: left; width: 50%; padding-top: 10px; text-align: right;">
+                <form action="create" method="get">
+
+                    <input type="hidden" name="catalog_id" value="${params.catalog_id}" />
+                    <select name="doc_type_id">
+                        <g:each in="${dokumendid.classificator.DocType.list()}" var="d">
+                            <g:if test="${d.level == 1}">
+                                <option value="${d.id}">${d.type_name}</option>
+                                <g:each in="${dokumendid.classificator.DocType.list()}" var="e">
+                                    <g:if test="${e.level == 2 && e.super_type_fk == d.id}">
+                                        <option value="${e.id}">  - - ${e.type_name}</option>
+                                        <g:each in="${dokumendid.classificator.DocType.list()}" var="f">
+                                            <g:if test="${f.level == 3 && f.super_type_fk == e.id}">
+                                                <option value="${f.id}">  - - - - ${f.type_name}</option>
+                                            </g:if>
+                                        </g:each>
+                                    </g:if>
+                                </g:each>
+                            </g:if>
+                        </g:each>
+                    </select>
+
+                    <button type="submit" class="btn">Lisa uus</button>
+
+                </form>
+            </div>
+            <div style="clear: both"></div>
+
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

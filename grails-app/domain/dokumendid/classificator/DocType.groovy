@@ -5,6 +5,8 @@ import dokumendid.DocTypeAttribute
 
 class DocType {
     String type_name;
+    Integer level;
+    Integer super_type_fk;
 
 
     static hasMany = [attributes:DocTypeAttribute]
@@ -18,7 +20,8 @@ class DocType {
 
         id column: 'doc_type'
         type_name column: 'type_name'
-
+        level column: 'level'
+        super_type_fk column: 'super_type_fk'
     }
 
     static constraints = {
