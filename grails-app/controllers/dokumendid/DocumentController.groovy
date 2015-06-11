@@ -54,7 +54,11 @@ class DocumentController {
 
         Document d = new Document(params);
 
-        [documentInstance: d, doc_type: DocType.findById(10)]
+        DocType type = DocType.get(params.doc_type_id)
+        DocCatalog catalog = DocCatalog.get(params.catalog_id)
+
+
+        [documentInstance: d, doc_type: type, doc_catalog: catalog]
     }
 
 
@@ -78,7 +82,7 @@ class DocumentController {
         status.type = DocStatusType.get(params.get('doc_status_type.id'));
         status.status_begin = new Date();
         status.status_end = null;
-        status.creator = Employee.get(session.employee_id)
+        status.creator = Employee.findById(session.employee_id)
         documentInstance.addToDoc_status(status);
 
 
@@ -121,26 +125,10 @@ class DocumentController {
 
 
 
-       // DocAttributeType test = DocAttributeType.findById(3);
-
-        String value_text = "tere";
-/*
-        documentInstance.addToAttributes(new DocAttribute(
-            atr_type_selection_value: null,
-            doc_attribute_type: test,
-            document: documentInstance,
-            type_name: test.type_name,
-            value_text: value_text
-        ))*/
-
-        println params.dump()
-
-
-
 
         if (!documentInstance.save(flush: true)) {
             render(view: "create", model: [
-                    documentInstance: documentInstance, doc_type: DocType.findById(params.get('doc_type.id'))])
+                    documentInstance: documentInstance, doc_type: DocType.findById(params.get('doc_type.id')), doc_catalog: DocCatalog.findById(params.get('doc_catalog.id'))])
             return
         }
 
@@ -159,18 +147,23 @@ class DocumentController {
         }
 
         [documentInstance: documentInstance]
-    }
+    }*/
 
     def edit() {
         def documentInstance = Document.get(params.id)
+        def doc_type = documentInstance.doc_type.type;
+        def doc_catalog = documentInstance.doc_catalog.catalog;
+
         if (!documentInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'document.label', default: 'Document'), params.id])
             redirect(action: "list")
             return
         }
 
-        [documentInstance: documentInstance]
+        [documentInstance: documentInstance, doc_type: doc_type, doc_catalog: doc_catalog]
     }
+
+    /*
 
     def update() {
         def documentInstance = Document.get(params.id)

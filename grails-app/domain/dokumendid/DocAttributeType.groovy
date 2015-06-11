@@ -21,6 +21,7 @@ class DocAttributeType {
         id column: 'doc_attribute_type', generator: 'sequence', params: [sequence: 'doc_attribute_type_id']
 
         type_name column: 'type_name'
+        selections sort: 'id', order: 'asc'
         //required column: 'required'
         //selections column: 'default_selection_id_fk'
         default_selection column: 'default_selection_id_fk'
@@ -32,9 +33,17 @@ class DocAttributeType {
 
     public int isRequired(DocType t) {
         DocTypeAttribute b = DocTypeAttribute.findByDoc_typeAndAttribute_type(t, this);
-        if (b.required == 'Y')
-            return 1;
+        if (b) {
+            if (b.required == 'Y')
+                return 1;
+        }
 
         return 0;
+    }
+
+    public String getValue(Document d) {
+        String r = "";
+
+        return r;
     }
 }

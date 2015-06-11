@@ -25,7 +25,7 @@ class DocStatus {
 
         type column: 'doc_status_type_fk'
         document column: 'document_fk'
-        creator colum: 'created_by'
+        creator column: 'created_by'
     }
 
     static constraints = {

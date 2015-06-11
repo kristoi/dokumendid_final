@@ -43,6 +43,8 @@ class Document {
         doc_type column: 'document_fk'
         doc_catalog column: 'document_fk'
 
+        attributes sort: 'id', order: 'asc'
+
         created_by column: 'created_by', insertable: true, updateable: false
         updated_by column: 'updated_by', insertable: false, updateable: true
         dateCreated column: 'created', insertable: true, updateable: false

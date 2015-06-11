@@ -2,6 +2,7 @@
 
 
 <input type="hidden" name="doc_type.id" value="${doc_type.id}" />
+<input type="hidden" name="doc_catalog.id" value="${doc_catalog.id}" />
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'description', 'error')} ">
 	<label for="description">
@@ -37,6 +38,14 @@
 </div>
 
 
+<div class="fieldcontain ${hasErrors(bean: doc_type, field: 'name', 'error')} ">
+    <label for="name">
+        <g:message code="document.name.label" default="Type" />
+
+    </label>
+    ${doc_type?.type_name}
+</div>
+
 <fieldset>
     <legend>Attributes</legend>
 
@@ -46,19 +55,18 @@
             <label>${a.type_name}</label>
             <span class="property-value" aria-labelledby="attributes-label">
                 <g:if test="${a.data_type.id == 1}">
-                    ${a.value_text}
+                    <input type="text" name="attribute.${a.doc_attribute_type.id}" value="${a.value_text}" />
                 </g:if>
                 <g:elseif test="${a.data_type.id == 2}">
-                    ${a.value_number}
+                    <input type="text" name="attribute.${a.doc_attribute_type.id}" value="${a.value_number}" />
                 </g:elseif>
                 <g:elseif test="${a.data_type.id == 3}">
-                    ${a.value_date.toGMTString()}
+                    <input type="text" name="attribute.${a.doc_attribute_type.id}" value="${a.value_date.toGMTString()}" />
                 </g:elseif>
                 <g:elseif test="${a.data_type.id == 4}">
-                    <!-- TODO: select nimekiri -->
-                    <select name="blabla">
+                    <select name="attribute.${a.doc_attribute_type.id}">
                         <g:each in="${a.doc_attribute_type.selections}" var="b">
-                            <option value="" <g:if test="${a.atr_type_selection_value == b.id}">selected</g:if>>${b.value_text}</option>
+                            <option value="${b.id}" <g:if test="${a.atr_type_selection_value == b.id}">selected</g:if>>${b.value_text}</option>
                         </g:each>
 
                     </select>
