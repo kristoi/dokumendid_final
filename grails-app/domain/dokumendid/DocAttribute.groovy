@@ -29,6 +29,7 @@ class DocAttribute {
 
         type_name column: 'type_name'
         value_text column: 'value_text'
+        value_number column: 'value_number'
 
         atr_type_selection_value column: 'atr_type_selection_value_fk'
 

@@ -331,17 +331,20 @@ class DocumentController {
                 }
 
                 if (attributes_list.size() > 0) {
-                    attributes_list[0].each { k, v ->
-                        if (v) {
-                            attributes {
-                                "doc_attribute_type" {
-                                    eq('id', Long.parseLong(k))
+                    attributes {
+                        or {
+                            attributes_list[0].each { k, v ->
+                                if (v) {
+                                    and {
+                                        "doc_attribute_type" {
+                                            eq('id', Long.parseLong(k))
+                                        }
+                                        ilike("value_text", '%' + v + '%')
+                                    }
                                 }
 
-                                ilike("value_text", '%' + v + '%')
                             }
                         }
-
                     }
                 }
             } else {
@@ -371,6 +374,99 @@ class DocumentController {
         render(view: "search", model: [results: results])
         return
     }
+
+    def cut() {
+        if (!session.cut) {
+            session.cut = new ArrayList<Long>()
+        }
+
+        def cuts = params.get("id").split(',')
+
+
+        if (params?.do == 'delete_selected') {
+            /*
+            cuts.each { v ->
+                ArrayList<Long> keep_list = session.cut;
+
+                Iterator<Long> listIterator = keep_list.iterator();
+                while (listIterator.hasNext()) {
+                    Long v = listIterator.next()
+                    if (keep_list.indexOf(Long.parseLong(v))) {
+                        keep_list.remove(keep_list.indexOf(Long.parseLong(v)))
+                    }
+                }
+
+                session.cut = keep_list
+            }*/
+
+
+
+            cuts.each { v ->
+                if (session.cut.indexOf(Long.parseLong(v))) {
+                    session.cut.remove(session.cut.indexOf(Long.parseLong(v)))
+                }
+            }
+
+            //println session.cut
+
+            render(contentType: 'text/json') {
+                [
+                        'cuts'  : session.cut,
+                        'status': session.cut ? "OK" : "Nothing present"
+                ]
+            }
+        } else {
+
+            cuts.each { v ->
+                println v
+                session.cut.add(Long.parseLong(v))
+            }
+
+            //println session.cut
+
+            render(contentType: 'text/json') {
+                [
+                        'cuts'  : session.cut,
+                        'status': session.cut ? "OK" : "Nothing present"
+                ]
+            }
+        }
+    }
+
+    def paste() {
+        if (session.cut) {
+            def documents = Document.findAllByIdInList(session.cut)
+            session.cut = null
+
+            def catalog = DocCatalog.findById(params.catalog_id);
+
+            documents.each{document ->
+                document.getDoc_catalog().setCatalog(catalog)
+                document.save(flush: true)
+            }
+        }
+
+        redirect(action: "list", params: [catalog_id: params.catalog_id])
+    }
+
+    def cuts() {
+        println params.do
+
+        if (params?.do == 'delete_all') {
+            session.cut = null;
+        }
+
+        def documents = null
+        if (session.cut)
+            documents = Document.findAllByIdInList(session.cut)
+
+
+
+
+        render(view: "cuts", model: [documents: documents])
+
+    }
+
 
     /*
 

@@ -6,6 +6,7 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'document.label', default: 'Document')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	</head>
 	<body>
 		<a href="#list-document" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
@@ -47,9 +48,15 @@
 		<div id="list-document" class="content scaffold-list" role="main">
             <div style="float: left; width: 50%;">
 			    <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+
+                <g:if test="${session.cut}">
+                    <button onclick="window.location.href='paste?catalog_id=${params.catalog_id}'">Liiguta puhver siia</button>
+                    <button onclick="window.location.href='cuts'">Vaata puhvrit</button>
+                </g:if>
             </div>
 
             <div style="float: left; width: 50%; padding-top: 10px; text-align: right;">
+                <button onclick="cutDocuments()">Cut</button>
                 <form action="create" method="get">
 
                     <input type="hidden" name="catalog_id" value="${params.catalog_id}" />
@@ -107,9 +114,13 @@
 						<td>${documentInstance.creator.person.last_name}</td>
 					
 						<td><g:formatDate date="${documentInstance.dateCreated}" /></td>
-					
-						<td>${fieldValue(bean: documentInstance, field: "description")}</td>
-					
+
+                        <td>${fieldValue(bean: documentInstance, field: "description")}</td>
+
+                        <td>
+                            <input class="cut" type="checkbox" name="cut" value="${documentInstance.id}" />
+                        </td>
+
 					</tr>
 				</g:each>
 				</tbody>
@@ -119,5 +130,27 @@
 			</div>
 		</div>
     </div>
+    <script type="text/javascript">
+    function cutDocuments() {
+        //$('.cut').prop('checked', false);
+
+        var cuts = [];
+        $('.cut:checked').each(function() {
+            cuts.push($(this).val());
+        });
+        $('.cut').prop('checked', false);
+
+        $.ajax({
+            url: "cut",
+            type: "POST",
+            dataType: "json",
+            data: {id: cuts.join(',')},
+            success: function(ret) {
+
+            }
+        })
+
+    }
+    </script>
 	</body>
 </html>
