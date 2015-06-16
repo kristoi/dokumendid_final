@@ -7,7 +7,7 @@
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'description', 'error')} ">
 	<label for="description">
 		<g:message code="document.description.label" default="Description" />
-		
+
 	</label>
 	<g:textField name="description" value="${documentInstance?.description}"/>
 </div>
@@ -15,7 +15,7 @@
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'doc_nr', 'error')} ">
 	<label for="doc_nr">
 		<g:message code="document.doc_nr.label" default="Docnr" />
-		
+
 	</label>
 	<g:textField name="doc_nr" value="${documentInstance?.doc_nr}"/>
 </div>
@@ -24,7 +24,7 @@
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'filename', 'error')} ">
 	<label for="filename">
 		<g:message code="document.filename.label" default="Filename" />
-		
+
 	</label>
 	<g:textField name="filename" value="${documentInstance?.filename}"/>
 </div>
@@ -32,7 +32,7 @@
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'name', 'error')} ">
 	<label for="name">
 		<g:message code="document.name.label" default="Name" />
-		
+
 	</label>
 	<g:textField name="name" value="${documentInstance?.name}"/>
 </div>
@@ -104,8 +104,8 @@
 
         <select name="doc_status_type.id">
             <g:each in="${dokumendid.classificator.DocStatusType.list()}" var="s">
-                <option value="${s.id}" <g:if test="${documentInstance.doc_status?.toList().size() > 0}">
-                <g:if test="${documentInstance.doc_status?.toList()?.last()?.type.id == s.id}">selected</g:if></g:if>>${s.type_name}</option>
+                <option value="${s.id}" <g:if test="${documentInstance.doc_status?.toList()?.size() > 0}">
+                <g:if test="${documentInstance.doc_status?.toList()?.last()?.type?.id == s.id}">selected</g:if></g:if>>${s.type_name}</option>
             </g:each>
         </select>
     </div>
