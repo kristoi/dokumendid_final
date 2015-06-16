@@ -57,5 +57,8 @@ class Document {
     static constraints = {
         created_by size: 1..10
         updated_by size: 1..10
+        name nullable: false
+        doc_nr nullable: false
+        filename nullable: false
     }
 }

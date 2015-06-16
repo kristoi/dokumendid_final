@@ -11,9 +11,33 @@
 		<a href="#show-document" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
+				<li><a class="home" href="${createLink(uri: '/document/list')}"><g:message code="Dokumentide list"/></a></li>
+				<li><a class="search" href="${createLink(uri: '/document/search')}"><g:message code="Otsi dokumente"/></a></li>
+				<li> <form action="create" method="get" >
+
+					<input type="hidden" name="catalog_id" value="${params.catalog_id}" />
+					<select name="doc_type_id">
+						<g:each in="${dokumendid.classificator.DocType.list()}" var="d">
+							<g:if test="${d.level == 1}">
+								<option value="${d.id}">${d.type_name}</option>
+								<g:each in="${dokumendid.classificator.DocType.list()}" var="e">
+									<g:if test="${e.level == 2 && e.super_type_fk == d.id}">
+										<option value="${e.id}">  - - ${e.type_name}</option>
+										<g:each in="${dokumendid.classificator.DocType.list()}" var="f">
+											<g:if test="${f.level == 3 && f.super_type_fk == e.id}">
+												<option value="${f.id}">  - - - - ${f.type_name}</option>
+											</g:if>
+										</g:each>
+									</g:if>
+								</g:each>
+							</g:if>
+						</g:each>
+					</select>
+
+					<button type="submit" class="btn">Lisa uus</button>
+
+				</form>
+				</li>
 			</ul>
 		</div>
 		<div id="show-document" class="content scaffold-show" role="main">

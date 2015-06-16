@@ -12,14 +12,18 @@
     <title>User Login</title>
 </head>
 <body>
+<div class="nav" role="navigation">
+    <ul>
+        <li><a class="home" href="${createLink(uri: '/document/list')}"><g:message code="Dokumentide list"/></a></li>
+    </ul>
+</div>
 <div class="body">
     <g:form action="doLogin" method="post">
         <div class="dialog">
-            <p>Enter your login details below:</p>
             <table  class="userForm">
                 <tr class='prop'>
                     <td valign='top' style='text-align:left;' width='20%'>
-                        <label for='username'>username:</label>
+                        <label for='username'>Username:</label>
                     </td>
                     <td valign='top' style='text-align:left;' width='80%'>
                         <input id="username" type='text' name='username' value='${user?.username}' />
