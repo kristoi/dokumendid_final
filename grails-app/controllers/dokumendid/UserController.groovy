@@ -3,7 +3,7 @@ package dokumendid
 class UserController {
 
     def login = {
-
+        render(view: "login")
     }
 
     def doLogin = {
@@ -12,6 +12,7 @@ class UserController {
             if (u) {
                 // username and password match -> log in
                 session.user = u
+                session.userName = u.getUsername()
                 session.employee_id = u.getEmployeeId()
                 redirect(controller:'document')
             } else {
@@ -26,6 +27,6 @@ class UserController {
 
     def logout = {
         session.invalidate()
-        redirect(controller:'main')
+        redirect(controller:'document')
     }
 }
