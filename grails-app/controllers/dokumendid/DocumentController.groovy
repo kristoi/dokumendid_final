@@ -7,7 +7,7 @@ import dokumendid.classificator.DocType
 import org.springframework.dao.DataIntegrityViolationException
 
 class DocumentController {
-    def beforeInterceptor = [action:this.&checkUser,except:['index','list','show']]
+    def beforeInterceptor = [action:this.&checkUser,except:[]]
 
     def checkUser() {
         if(!session.user) {
@@ -129,7 +129,7 @@ class DocumentController {
 
         if (!documentInstance.save(flush: true)) {
             render(view: "create", model: [
-                    documentInstance: documentInstance, doc_type: DocType.findById(params.get('doc_type.id')), doc_catalog: DocCatalog.findById(params.get('doc_catalog.id'))])
+                    documentInstance: documentInstance, doc_type: DocType.findById(params.get('doc_type_id')), doc_catalog: DocCatalog.findById(params.get('doc_catalog_id'))])
             return
         }
 
@@ -276,12 +276,50 @@ class DocumentController {
         def save = documentInstance.save(flush: true)
 
         if (!save) {
-            render(view: "edit", model: [documentInstance: documentInstance, doc_type: doc_type, doc_catalog: doc_catalog.catalog])
+            render(view: "edit", model: [documentInstance: documentInstance, doc_type: documentInstance.doc_type.type, doc_catalog: documentInstance.doc_catalog])
             return
         }
 
 		flash.message = message(code: 'default.updated.message', args: [message(code: 'document.label', default: 'Document'), documentInstance.id])
         redirect(action: "show", id: documentInstance.id)
+    }
+
+    def links() {
+        def documentInstance = Document.findById(params.get('id'))
+
+
+        render(view: "links", model: [documentInstance: documentInstance])
+        return
+    }
+
+    def add_links() {
+        def documentInstance = Document.get(params.id)
+
+        if (!documentInstance) {
+            flash.message = message(code: 'default.not.found.message', args: [message(code: 'document.label', default: 'Document'), params.id])
+            redirect(action: "list")
+            return
+        }
+
+        [documentInstance: documentInstance]
+    }
+
+    def save_links() {
+        def documentInstance = Document.get(params.id)
+
+        def doc_subject = new DocSubject(params)
+        doc_subject.document = documentInstance
+        doc_subject.subject_fk = params.getInt("subject_fk")
+
+        if (!doc_subject.save(flush: true)) {
+            render(view: "add_links", model: [documentInstance: documentInstance, docSubjectInstance: doc_subject])
+            return
+        }
+
+
+
+        redirect(action: "links", id: params.id)
+        return
     }
 
     def search() {
@@ -464,7 +502,52 @@ class DocumentController {
 
 
         render(view: "cuts", model: [documents: documents])
+    }
 
+    def subject_search() {
+        def results = Person.findAllByLast_nameIlike('%' + params.get('query').toString() + '%')
+        def results_enterprise = Enterprise.findAllByNameIlike('%' + params.get('query').toString() + '%')
+
+
+        ArrayList<HashMap> results_list = new ArrayList<HashMap>()
+
+        results.each { person ->
+            HashMap<Integer, String> item = new HashMap<Integer, String>();
+
+            HashMap<Integer, String> data = new HashMap<Integer, String>();
+
+            data.put("id", String.valueOf(person.id))
+            data.put("doc_subject_type_fk", "1")
+
+            item.put("data", data)
+            item.put("value", person.name)
+            results_list.add(item)
+        }
+
+        results_enterprise.each { enterprise ->
+            HashMap<Integer, String> item = new HashMap<Integer, String>();
+
+            HashMap<Integer, String> data = new HashMap<Integer, String>();
+
+            data.put("id", String.valueOf(enterprise.id))
+            data.put("doc_subject_type_fk", "2")
+
+            item.put("data", data)
+            item.put("value", enterprise.name)
+            results_list.add(item)
+        }
+
+        render(contentType: 'text/json') {
+            [
+                "suggestions": results_list
+            ]
+        }
+    }
+
+    def delete_link() {
+        def doc_subject = DocSubject.findById(params.id).delete(flush: true)
+
+        redirect(uri: request.getHeader('referer'))
     }
 
 

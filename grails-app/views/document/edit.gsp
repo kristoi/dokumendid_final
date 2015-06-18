@@ -12,31 +12,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/document/list')}"><g:message code="Dokumentide list"/></a></li>
 				<li><a class="search" href="${createLink(uri: '/document/search')}"><g:message code="Otsi dokumente"/></a></li>
-				<li> <form action="create" method="get" >
-
-					<input type="hidden" name="catalog_id" value="${params.catalog_id}" />
-					<select name="doc_type_id">
-						<g:each in="${dokumendid.classificator.DocType.list()}" var="d">
-							<g:if test="${d.level == 1}">
-								<option value="${d.id}">${d.type_name}</option>
-								<g:each in="${dokumendid.classificator.DocType.list()}" var="e">
-									<g:if test="${e.level == 2 && e.super_type_fk == d.id}">
-										<option value="${e.id}">  - - ${e.type_name}</option>
-										<g:each in="${dokumendid.classificator.DocType.list()}" var="f">
-											<g:if test="${f.level == 3 && f.super_type_fk == e.id}">
-												<option value="${f.id}">  - - - - ${f.type_name}</option>
-											</g:if>
-										</g:each>
-									</g:if>
-								</g:each>
-							</g:if>
-						</g:each>
-					</select>
-
-					<button type="submit" class="btn">Lisa uus</button>
-
-				</form>
-				</li>
 			</ul>
 		</div>
 		<div id="edit-document" class="content scaffold-edit" role="main">

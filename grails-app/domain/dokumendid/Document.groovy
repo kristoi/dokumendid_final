@@ -26,7 +26,7 @@ class Document {
 
 
     static belongsTo = [creator:Person,updater:Person]
-    static hasMany = [attributes:DocAttribute, doc_status:DocStatus]
+    static hasMany = [attributes:DocAttribute, doc_status:DocStatus, subjects: DocSubject]
     static hasOne = [doc_type:DocumentDocType, doc_catalog:DocumentDocCatalog]
 
     static mapping = {
@@ -46,6 +46,7 @@ class Document {
         doc_catalog column: 'document_fk'
 
         attributes sort: 'id', order: 'asc'
+        subjects sort: 'id', order: 'asc'
         doc_status sort: 'id', order: 'asc'
 
         created_by column: 'created_by', insertable: true, updateable: false
@@ -57,8 +58,8 @@ class Document {
     static constraints = {
         created_by size: 1..10
         updated_by size: 1..10
-        name nullable: false
-        doc_nr nullable: false
-        filename nullable: false
+        name nullable: false, blank: false, size: 1..50
+        doc_nr nullable: false, blank: true
+        filename nullable: false, blank: true
     }
 }

@@ -102,6 +102,7 @@
 						<g:sortableColumn property="dateCreated" title="${message(code: 'document.dateCreated.label', default: 'Fail Loodud')}" />
 					
 						<g:sortableColumn property="description" title="${message(code: 'document.description.label', default: 'Kirjeldus')}" />
+                        <th></th>
 
 					</tr>
 				</thead>

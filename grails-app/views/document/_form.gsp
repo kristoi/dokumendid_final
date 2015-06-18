@@ -6,7 +6,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'description', 'error')} ">
 	<label for="description">
-		<g:message code="document.description.label" default="Description" />
+		<g:message code="document.description.label" default="Kirjeldus" />
 
 	</label>
 	<g:textField name="description" value="${documentInstance?.description}"/>
@@ -14,7 +14,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'doc_nr', 'error')} ">
 	<label for="doc_nr">
-		<g:message code="document.doc_nr.label" default="Docnr" />
+		<g:message code="document.doc_nr.label" default="Dokumend nr" />
 
 	</label>
 	<g:textField name="doc_nr" value="${documentInstance?.doc_nr}"/>
@@ -23,7 +23,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'filename', 'error')} ">
 	<label for="filename">
-		<g:message code="document.filename.label" default="Filename" />
+		<g:message code="document.filename.label" default="Faili nimi" />
 
 	</label>
 	<g:textField name="filename" value="${documentInstance?.filename}"/>
@@ -31,7 +31,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: documentInstance, field: 'name', 'error')} ">
 	<label for="name">
-		<g:message code="document.name.label" default="Name" />
+		<g:message code="document.name.label" default="Nimetus" />
 
 	</label>
 	<g:textField name="name" value="${documentInstance?.name}"/>
@@ -40,14 +40,14 @@
 
 <div class="fieldcontain ${hasErrors(bean: doc_type, field: 'name', 'error')} ">
     <label for="name">
-        <g:message code="document.name.label" default="Type" />
+        <g:message code="document.name.label" default="Tüüp" />
 
     </label>
     ${doc_type?.type_name}
 </div>
 
 <fieldset>
-    <legend>Attributes</legend>
+    <legend>Atribuudid</legend>
 
 <g:if test="${documentInstance?.attributes}">
     <g:each in="${documentInstance.attributes}" var="a">
@@ -100,7 +100,7 @@
     </g:each>
 </g:else>
     <div class="fieldcontain  required">
-        <label>DocStatus</label>
+        <label>Staatus</label>
 
         <select name="doc_status_type.id">
             <g:each in="${dokumendid.classificator.DocStatusType.list()}" var="s">

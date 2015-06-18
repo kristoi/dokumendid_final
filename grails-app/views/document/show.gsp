@@ -13,31 +13,6 @@
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/document/list')}"><g:message code="Dokumentide list"/></a></li>
 				<li><a class="search" href="${createLink(uri: '/document/search')}"><g:message code="Otsi dokumente"/></a></li>
-				<li> <form action="create" method="get" >
-
-					<input type="hidden" name="catalog_id" value="${params.catalog_id}" />
-					<select name="doc_type_id">
-						<g:each in="${dokumendid.classificator.DocType.list()}" var="d">
-							<g:if test="${d.level == 1}">
-								<option value="${d.id}">${d.type_name}</option>
-								<g:each in="${dokumendid.classificator.DocType.list()}" var="e">
-									<g:if test="${e.level == 2 && e.super_type_fk == d.id}">
-										<option value="${e.id}">  - - ${e.type_name}</option>
-										<g:each in="${dokumendid.classificator.DocType.list()}" var="f">
-											<g:if test="${f.level == 3 && f.super_type_fk == e.id}">
-												<option value="${f.id}">  - - - - ${f.type_name}</option>
-											</g:if>
-										</g:each>
-									</g:if>
-								</g:each>
-							</g:if>
-						</g:each>
-					</select>
-
-					<button type="submit" class="btn">Lisa uus</button>
-
-				</form>
-				</li>
 			</ul>
 		</div>
 		<div id="show-document" class="content scaffold-show" role="main">
@@ -101,20 +76,54 @@
 					</li>
 				</g:if>
 
+                <g:if test="${documentInstance?.updater}">
+                    <li class="fieldcontain">
+                        <span id="lastUpdate-label" class="property-label"><g:message code="document.lastUpdated.label" default="Viimane uuendaja" /></span>
+
+                        <span class="property-value" aria-labelledby="lastUpdate-label">${documentInstance.updater.person.first_name + ' '  + documentInstance.updater.person.last_name}</span>
+
+                    </li>
+                </g:if>
+
 				<g:if test="${documentInstance?.doc_catalog.catalog.name}">
 					<li class="fieldcontain">
-						<span id="lastUpdate-label" class="property-label"><g:message code="document.lastUpdated.label" default="Viimane uuendus failile" /></span>
+						<span id="catalog-label" class="property-label"><g:message code="document.lastUpdated.label" default="Kataloog" /></span>
 
 						<span class="property-value" aria-labelledby="lastUpdate-label">${documentInstance.doc_catalog.catalog.name}</span>
 
 					</li>
 				</g:if>
-			
-			</ol>
+
+			    <hr />
+                <g:if test="${documentInstance?.attributes}">
+                    <g:each in="${documentInstance.attributes}" var="a">
+                        <li class="fieldcontain ${hasErrors(bean: documentInstance, field: 'attributes', 'error')} ">
+                            <span id="catalog-label" class="property-label">${a.type_name}</span>
+                            <span class="property-value" aria-labelledby="attributes-label">
+                                <g:if test="${a.data_type.id == 1}">
+                                   ${a.value_text}
+                                </g:if>
+                                <g:elseif test="${a.data_type.id == 2}">
+                                    ${a.value_number}
+                                </g:elseif>
+                                <g:elseif test="${a.data_type.id == 3}">
+                                  ${a.value_date.toGMTString()}
+                                </g:elseif>
+                                <g:elseif test="${a.data_type.id == 4}">
+                                        <g:each in="${a.doc_attribute_type.selections}" var="b">
+                                            <g:if test="${a.atr_type_selection_value == b.id}">${b.value_text}</g:if>
+                                        </g:each>
+                                </g:elseif>
+                            </span>
+                        </li>
+                    </g:each>
+                </g:if>
+                </ol>
 			<g:form>
 				<fieldset class="buttons">
-					<!-- <g:hiddenField name="id" value="${documentInstance?.created_by}" /> --!>
-					<g:link class="edit" action="edit" id="${documentInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:hiddenField name="id" value="${documentInstance?.id}" />
+                    <g:link class="edit" action="edit" id="${documentInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                    <g:link class="links" action="links" id="${documentInstance?.id}"><g:message code="default.button.edit.links" default="Seosed" /></g:link>
 					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
