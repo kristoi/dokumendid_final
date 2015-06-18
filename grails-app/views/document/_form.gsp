@@ -46,6 +46,14 @@
     ${doc_type?.type_name}
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: documentInstace, field: 'name', 'error')} ">
+    <label for="name">
+        <g:message code="document.name.label" default="Kataloog" />
+
+    </label>
+    ${doc_catalog?.name}
+</div>
+
 <fieldset>
     <legend>Atribuudid</legend>
 
